@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ZomVault.Cli/ZomVault.Cli.csproj" />
+  <Project Path="ZomVault.Core/ZomVault.Core.csproj" />
+</Solution>
