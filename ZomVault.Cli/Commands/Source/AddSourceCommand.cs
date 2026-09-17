@@ -3,12 +3,10 @@ using ZomVault.Core.SaveSource;
 
 namespace ZomVault.Cli.Commands.Source;
 
-public static class AddSourceCommand
+public class AddSourceCommand(SourceRepository sourceRepository)
 {
-    public static Command Create()
+    public Command Create()
     {
-        var sourceRepository = new SourceManifestRepository();
-        
         var command = new Command(
             "add",
             "Add a new save source"

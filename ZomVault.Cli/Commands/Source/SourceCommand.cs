@@ -2,18 +2,21 @@ using System.CommandLine;
 
 namespace ZomVault.Cli.Commands.Source;
 
-public static class SourceCommand
-{
-    public static Command Create()
+public class SourceCommand(
+    AddSourceCommand addSourceCommand,
+    ListSourcesCommand listSourcesCommand,
+    RemoveSourceCommand removeSourceCommand
+) {
+    public Command Create()
     {
         var sourceCommand = new Command(
             "source",
             "Manage save sources"
         );
 
-        sourceCommand.Add(AddSourceCommand.Create());
-        sourceCommand.Add(ListSourcesCommand.Create());
-        sourceCommand.Add(RemoveSourceCommand.Create());
+        sourceCommand.Add(addSourceCommand.Create());
+        sourceCommand.Add(listSourcesCommand.Create());
+        sourceCommand.Add(removeSourceCommand.Create());
 
         return sourceCommand;
     }
