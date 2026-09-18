@@ -1,12 +1,17 @@
 using ZomVault.Core.Archive;
+using ZomVault.Core.Storage;
 
 namespace ZomVault.Core.Backup.UseCase;
 
-public class CreateBackupUseCase(BackupRepository repository)
+public class CreateBackupUseCase(
+    IArchiver archiver,
+    IBackupStorage backupStorage,
+    BackupRepository repository
+)
 {
     public void Create(SaveSource.SaveSourceModel source)
     {
-        var archive = Archiver.Create(source);
+        var archive = archiver.Create(source);
 
         var backup = new BackupModel()
         {
@@ -22,11 +27,7 @@ public class CreateBackupUseCase(BackupRepository repository)
             source.Name
         );
         
-        Directory.CreateDirectory(destination);
-
-        var file = File.Create(Path.Combine(destination, backup.Filename));
-
-        archive.CopyTo(file);
+        backupStorage.Store(archive, destination, backup.Filename);
         
         repository.Add(backup);
     }

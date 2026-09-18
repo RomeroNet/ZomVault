@@ -3,9 +3,9 @@ using ZstdNet;
 
 namespace ZomVault.Core.Archive;
 
-public class Archiver
+public class Archiver : IArchiver
 {
-    public static Stream Create(SaveSource.SaveSourceModel source)
+    public Stream Create(SaveSource.SaveSourceModel source)
     {
         var stream = new MemoryStream();
         var options = new CompressionOptions(10);

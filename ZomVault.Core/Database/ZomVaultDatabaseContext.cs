@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using ZomVault.Core.Backup;
 using ZomVault.Core.SaveSource;
 
 namespace ZomVault.Core.Database;
 
+[ExcludeFromCodeCoverage]
 public class ZomVaultDatabaseContext : DbContext
 {
     public DbSet<SaveSourceModel> Sources => Set<SaveSourceModel>();

@@ -2,10 +2,12 @@ using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using ZomVault.Cli.Commands.Backup;
 using ZomVault.Cli.Commands.Source;
+using ZomVault.Core.Archive;
 using ZomVault.Core.Backup;
 using ZomVault.Core.Backup.UseCase;
 using ZomVault.Core.Database;
 using ZomVault.Core.SaveSource;
+using ZomVault.Core.Storage;
 
 namespace ZomVault.Cli.DependencyInjection;
 
@@ -21,6 +23,9 @@ public class Container
     private void RegisterServices()
     {
         _services.AddDbContext<ZomVaultDatabaseContext>();
+
+        _services.AddScoped<IArchiver, Archiver>();
+        _services.AddScoped<IBackupStorage, BackupStorage>();
         
         _services.AddScoped<CreateBackupUseCase>();
 
