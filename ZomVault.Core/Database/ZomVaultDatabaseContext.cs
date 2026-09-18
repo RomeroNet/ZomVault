@@ -1,14 +1,29 @@
 using Microsoft.EntityFrameworkCore;
+using ZomVault.Core.Backup;
+using ZomVault.Core.SaveSource;
 
 namespace ZomVault.Core.Database;
 
 public class ZomVaultDatabaseContext : DbContext
 {
-    public DbSet<SaveSource.SaveSource> Sources => Set<SaveSource.SaveSource>();
-    public DbSet<Backup.Backup> Backups => Set<Backup.Backup>();
+    public DbSet<SaveSourceModel> Sources => Set<SaveSourceModel>();
+    public DbSet<BackupModel> Backups => Set<BackupModel>();
+
+    public ZomVaultDatabaseContext()
+    {
+    }
+
+    public ZomVaultDatabaseContext(DbContextOptions<ZomVaultDatabaseContext> options) : base(options)
+    {
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        if (optionsBuilder.IsConfigured)
+        {
+            return;
+        }
+        
         var configDirectory = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "ZomVault"

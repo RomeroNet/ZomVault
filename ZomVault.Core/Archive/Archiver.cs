@@ -5,7 +5,7 @@ namespace ZomVault.Core.Archive;
 
 public class Archiver
 {
-    public static Stream Create(SaveSource.SaveSource source)
+    public static Stream Create(SaveSource.SaveSourceModel source)
     {
         var stream = new MemoryStream();
         var options = new CompressionOptions(10);

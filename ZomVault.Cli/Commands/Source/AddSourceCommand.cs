@@ -39,7 +39,7 @@ public class AddSourceCommand(SourceRepository sourceRepository)
 
             try
             {
-                var source = new SaveSource()
+                var source = new SaveSourceModel()
                 {
                     Name = name,
                     Path = Path.GetFullPath(path)

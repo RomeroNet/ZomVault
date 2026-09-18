@@ -6,12 +6,12 @@ namespace ZomVault.Core.SaveSource;
 
 public class SourceRepository(ZomVaultDatabaseContext db)
 {
-    public List<SaveSource> GetAll()
+    public List<SaveSourceModel> GetAll()
     {
         return [.. db.Sources];
     }
 
-    public void Add(SaveSource source)
+    public void Add(SaveSourceModel source)
     {
         db.Sources.Add(source);
         db.SaveChanges();

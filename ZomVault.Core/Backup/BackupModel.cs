@@ -1,6 +1,8 @@
+using ZomVault.Core.SaveSource;
+
 namespace ZomVault.Core.Backup;
 
-public class Backup
+public class BackupModel
 {
     public int Id { get; set; }
     public required DateTime CreatedAt { get; init; }
@@ -8,5 +10,5 @@ public class Backup
     public required int CompressionLevel { get; init; }
     
     public required int SourceId { get; init; }
-    public SaveSource.SaveSource Source { get; init; } = null!;
+    public SaveSourceModel Source { get; set; } = null!;
 }
