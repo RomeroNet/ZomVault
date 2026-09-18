@@ -1,4 +1,4 @@
-namespace ZomVault.Core.Storage;
+namespace ZomVault.Core.Backup.Storage;
 
 public class BackupStorage : IBackupStorage
 {
@@ -9,5 +9,15 @@ public class BackupStorage : IBackupStorage
         using var file = File.Create(Path.Combine(destination, filename));
         
         archive.CopyTo(file);
+    }
+
+    public void Restore(BackupModel backup)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Delete(string path)
+    {
+        File.Delete(path);
     }
 }

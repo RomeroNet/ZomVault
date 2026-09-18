@@ -1,6 +1,6 @@
-using ZomVault.Core.Storage;
+using ZomVault.Core.Backup.Storage;
 
-namespace ZomVault.Core.Tests.Storage;
+namespace ZomVault.Core.Tests.Backup.Storage;
 
 public class BackupStorageTest
 {
@@ -30,5 +30,24 @@ public class BackupStorageTest
             new byte[] { 1, 2, 3 },
             contents
         );
+    }
+
+    [Fact]
+    public void Delete_test()
+    {
+        var storage = new BackupStorage();
+        
+        var filePath = Path.Combine(
+            Path.GetTempPath(),
+            Guid.NewGuid().ToString()
+        );
+        
+        File.WriteAllText(filePath, "Hello ZomVault!");
+        
+        Assert.True(File.Exists(filePath));
+        
+        storage.Delete(filePath);
+        
+        Assert.False(File.Exists(filePath));
     }
 }

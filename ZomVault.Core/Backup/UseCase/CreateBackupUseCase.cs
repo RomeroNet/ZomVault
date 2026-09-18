@@ -1,17 +1,17 @@
-using ZomVault.Core.Archive;
-using ZomVault.Core.Storage;
+using ZomVault.Core.Backup.Compression;
+using ZomVault.Core.Backup.Storage;
 
 namespace ZomVault.Core.Backup.UseCase;
 
 public class CreateBackupUseCase(
-    IArchiver archiver,
+    ICompressionAlgorithm compressionAlgorithm,
     IBackupStorage backupStorage,
     BackupRepository repository
 )
 {
     public void Create(SaveSource.SaveSourceModel source)
     {
-        var archive = archiver.Create(source);
+        var archive = compressionAlgorithm.Compress(source);
 
         var backup = new BackupModel()
         {

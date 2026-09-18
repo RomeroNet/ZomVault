@@ -1,9 +1,9 @@
 using Moq;
-using ZomVault.Core.Archive;
 using ZomVault.Core.Backup;
+using ZomVault.Core.Backup.Compression;
+using ZomVault.Core.Backup.Storage;
 using ZomVault.Core.Backup.UseCase;
 using ZomVault.Core.SaveSource;
-using ZomVault.Core.Storage;
 using ZomVault.Core.Tests.Helper;
 using ZomVault.Core.Tests.ObjectMother;
 
@@ -15,12 +15,12 @@ public class CreateBackupUseCaseTest
     public void Create_Test()
     {
         using var db = DatabaseTestHelper.CreateContext();
-        var archiver = new Mock<IArchiver>();
+        var archiver = new Mock<ICompressionAlgorithm>();
         var storage = new Mock<IBackupStorage>();
 
         var archive = new MemoryStream([1, 2, 3]);
         archiver
-            .Setup(x => x.Create(It.IsAny<SaveSourceModel>()))
+            .Setup(x => x.Compress(It.IsAny<SaveSourceModel>()))
             .Returns(archive);
 
         var repository = new BackupRepository(db);

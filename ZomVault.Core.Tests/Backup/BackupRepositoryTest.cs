@@ -1,4 +1,6 @@
 using ZomVault.Core.Backup;
+using ZomVault.Core.Database;
+using ZomVault.Core.SaveSource;
 using ZomVault.Core.Tests.Helper;
 using ZomVault.Core.Tests.ObjectMother;
 
@@ -47,11 +49,8 @@ public class BackupRepositoryTest
     public void Add_test()
     {
         using var db = DatabaseTestHelper.CreateContext();
-        
-        var source = SaveSourceModelObjectMother.Get();
-        
-        db.Sources.Add(source);
-        db.SaveChanges();
+
+        var source = PrepareSource(db);
         
         var backup = BackupModelObjectMother.Get(source);
         
@@ -66,5 +65,36 @@ public class BackupRepositoryTest
         Assert.Equal(backup.CompressionLevel, result.CompressionLevel);
         Assert.Equal(backup.SourceId, result.SourceId);
         Assert.Equal(source, result.Source);
+    }
+
+    [Fact]
+    public void Delete_test()
+    {
+        using var db = DatabaseTestHelper.CreateContext();
+
+        var source = PrepareSource(db);
+        
+        var backup = BackupModelObjectMother.Get(source);
+        
+        var repository = new BackupRepository(db);
+        
+        db.Backups.Add(backup);
+        db.SaveChanges();
+        
+        repository.Delete(backup);
+        
+        var result = db.Backups.SingleOrDefault(x => x.Id == backup.Id);
+        
+        Assert.Null(result);
+    }
+
+    private SaveSourceModel PrepareSource(ZomVaultDatabaseContext db)
+    {
+        var source = SaveSourceModelObjectMother.Get();
+        
+        db.Sources.Add(source);
+        db.SaveChanges();
+        
+        return source;
     }
 }

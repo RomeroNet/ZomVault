@@ -1,9 +1,9 @@
-using ZomVault.Core.Archive;
+using ZomVault.Core.Backup.Compression;
 using ZomVault.Core.SaveSource;
 
-namespace ZomVault.Core.Tests.Archive;
+namespace ZomVault.Core.Tests.Backup.Compression;
 
-public class ArchiverTest
+public class CompressionAlgorithmTest
 {
     [Fact]
     public void Test_create()
@@ -26,9 +26,9 @@ public class ArchiverTest
             Path = sourceDirectory
         };
 
-        var archiver = new Archiver();
+        var archiver = new CompressionAlgorithm();
 
-        using var archive = archiver.Create(source);
+        using var archive = archiver.Compress(source);
 
         Assert.NotNull(archive);
         Assert.True(archive.Length > 0);

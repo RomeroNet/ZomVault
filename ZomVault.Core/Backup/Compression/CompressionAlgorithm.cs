@@ -1,11 +1,11 @@
 using System.Formats.Tar;
 using ZstdNet;
 
-namespace ZomVault.Core.Archive;
+namespace ZomVault.Core.Backup.Compression;
 
-public class Archiver : IArchiver
+public class CompressionAlgorithm : ICompressionAlgorithm
 {
-    public Stream Create(SaveSource.SaveSourceModel source)
+    public Stream Compress(SaveSource.SaveSourceModel source)
     {
         var stream = new MemoryStream();
         var options = new CompressionOptions(10);
