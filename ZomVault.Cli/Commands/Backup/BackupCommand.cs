@@ -8,7 +8,8 @@ namespace ZomVault.Cli.Commands.Backup;
 public class BackupCommand(
     CreateBackupCommand createBackupCommand,
     ListBackupsCommand listBackupsCommand,
-    RemoveBackupCommand removeBackupCommand
+    RemoveBackupCommand removeBackupCommand,
+    RestoreBackupCommand restoreBackupCommand
 ) {
     public Command Create()
     {
@@ -20,6 +21,7 @@ public class BackupCommand(
         backupCommand.Add(createBackupCommand.Create());
         backupCommand.Add(listBackupsCommand.Create());
         backupCommand.Add(removeBackupCommand.Create());
+        backupCommand.Add(restoreBackupCommand.Create());
         
         return backupCommand;
     }

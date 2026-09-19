@@ -11,11 +11,6 @@ public class BackupStorage : IBackupStorage
         archive.CopyTo(file);
     }
 
-    public void Restore(BackupModel backup)
-    {
-        throw new NotImplementedException();
-    }
-
     public void Delete(string path)
     {
         File.Delete(path);

@@ -1,5 +1,6 @@
 using ZomVault.Core.Backup.Compression;
 using ZomVault.Core.Backup.Storage;
+using ZomVault.Core.SaveSource;
 
 namespace ZomVault.Core.Backup.UseCase;
 
@@ -9,7 +10,7 @@ public class CreateBackupUseCase(
     BackupRepository repository
 )
 {
-    public void Create(SaveSource.SaveSourceModel source)
+    public BackupModel Create(SaveSourceModel source)
     {
         var archive = compressionAlgorithm.Compress(source);
 
@@ -30,5 +31,7 @@ public class CreateBackupUseCase(
         backupStorage.Store(archive, destination, backup.Filename);
         
         repository.Add(backup);
+        
+        return backup;
     }
 }

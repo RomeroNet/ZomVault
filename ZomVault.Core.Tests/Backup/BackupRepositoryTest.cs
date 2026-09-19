@@ -9,7 +9,7 @@ namespace ZomVault.Core.Tests.Backup;
 public class BackupRepositoryTest
 {
     [Fact]
-    public void List_test()
+    public void GetWhereSourceName_test()
     {
         using var db = DatabaseTestHelper.CreateContext();
 
@@ -43,6 +43,25 @@ public class BackupRepositoryTest
             Assert.Equal(expected.SourceId, result.SourceId);
             Assert.Equal(source, result.Source);
         }
+    }
+
+    [Fact]
+    public void GetWhereFileName_test()
+    {
+        using var db = DatabaseTestHelper.CreateContext();
+
+        var source = PrepareSource(db);
+        
+        var expected = BackupModelObjectMother.Get(source);
+        
+        db.Backups.Add(expected);
+        db.SaveChanges();
+
+        var repository = new BackupRepository(db);
+
+        var result = repository.GetWhereFileName(expected.Filename);
+        
+        Assert.Equal(expected, result);
     }
 
     [Fact]

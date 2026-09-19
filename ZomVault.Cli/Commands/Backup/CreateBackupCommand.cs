@@ -37,9 +37,9 @@ public class CreateBackupCommand(
                 throw new InvalidOperationException($"Source {sourceName} does not exist.");
             }
 
-            createBackupUseCase.Create(source);
+            var backup = createBackupUseCase.Create(source);
             
-            Console.WriteLine($"Backup written to: 'WIP: Add this'");
+            Console.WriteLine($"Backup written to: {backup.FilePath}");
         });
 
         return command;

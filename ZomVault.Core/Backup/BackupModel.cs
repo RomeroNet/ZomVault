@@ -11,4 +11,11 @@ public class BackupModel
     
     public required int SourceId { get; init; }
     public SaveSourceModel Source { get; set; } = null!;
+
+    public string FilePath => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+        "ZomVault",
+        Source.Name,
+        Filename
+    );
 }

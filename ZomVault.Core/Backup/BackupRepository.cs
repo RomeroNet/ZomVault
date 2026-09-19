@@ -11,6 +11,13 @@ public class BackupRepository(ZomVaultDatabaseContext db)
             .Where(backup => backup.Source.Name == sourceName)
             .ToList();
     }
+    
+    public BackupModel GetWhereFileName(string fileName)
+    {
+        return db.Backups
+            .Include(x => x.Source)
+            .Single(backup => backup.Filename == fileName);
+    }
 
     public void Add(BackupModel backup)
     {
@@ -22,12 +29,5 @@ public class BackupRepository(ZomVaultDatabaseContext db)
     {
         db.Backups.Remove(backup);
         db.SaveChanges();
-    }
-
-    public BackupModel GetWhereFileName(string fileName)
-    {
-        return db.Backups
-            .Include(x => x.Source)
-            .Single(backup => backup.Filename == fileName);
     }
 }

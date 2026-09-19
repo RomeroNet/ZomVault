@@ -29,6 +29,7 @@ public class Container
         
         _services.AddScoped<CreateBackupUseCase>();
         _services.AddScoped<DeleteBackupUseCase>();
+        _services.AddScoped<RestoreBackupUseCase>();
 
         _services.AddScoped<SourceRepository>();
         _services.AddScoped<BackupRepository>();
@@ -41,6 +42,7 @@ public class Container
         _services.AddScoped<CreateBackupCommand>();
         _services.AddScoped<ListBackupsCommand>();
         _services.AddScoped<RemoveBackupCommand>();
+        _services.AddScoped<RestoreBackupCommand>();
         _services.AddScoped<BackupCommand>();
     }
 
